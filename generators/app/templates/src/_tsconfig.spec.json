@@ -6,12 +6,18 @@
     "module": "commonjs",
     "target": "es5",
     "types": [
+<% if (props.tools.includes('jest')) { -%>
+      "jest",
+<% } else { -%>
       "jasmine",
+<% } -%>
       "node"
     ]
   },
   "files": [
+<% if (!props.tools.includes('jest')) { -%>
     "test.ts",
+<% } -%>
     "polyfills.ts"
   ],
   "include": [
