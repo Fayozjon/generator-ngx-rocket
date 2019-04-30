@@ -23,9 +23,15 @@ describe('AppComponent', () => {
 
 <% } -%>
   beforeEach(async(() => {
-<% if (props.target.includes('cordova')) { -%>
+<% if (props.target.includes('cordova') && !props.tools.includes('jest')) { -%>
     statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
     splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
+
+<% } else if (props.target.includes('cordova') && props.tools.includes('jest')) { -%>
+  statusBarSpy = jest.fn();
+  splashScreenSpy = jest.fn(() => ({
+    hide: jest.fn()
+  }));
 
 <% } -%>
     TestBed.configureTestingModule({
