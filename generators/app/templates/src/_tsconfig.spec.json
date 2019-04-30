@@ -5,6 +5,9 @@
     "baseUrl": "./",
     "module": "commonjs",
     "target": "es5",
+<% if (props.tools.includes('jest')) { -%>
+    "allowJs": true,
+<% } -%>
     "types": [
 <% if (props.tools.includes('jest')) { -%>
       "jest",
