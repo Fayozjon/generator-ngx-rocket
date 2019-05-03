@@ -6,5 +6,6 @@
   "auth": true,
   "lazy": false,
   "location": "hash",
-  "strict": true
+  "strict": true,
+  "tools": ["jest"]
 }
