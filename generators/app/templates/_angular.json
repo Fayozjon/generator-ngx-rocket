@@ -25,18 +25,18 @@
             "assets": [
 <% if (props.target.includes('web')) { -%>
               "src/favicon.ico",
-                "src/apple-touch-icon.png",
-                "src/robots.txt",
+              "src/apple-touch-icon.png",
+              "src/robots.txt",
 <% } -%>
 <% if (props.pwa) { -%>
               "src/manifest.json",
 <% } -%>
 <% if (props.ui === 'ionic') { -%>
               {
-                  "glob": "**/*.svg",
-                  "input": "node_modules/ionicons/dist/ionicons/svg",
-                  "output": "./svg"
-                },
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              },
 <% } -%>
               "src/assets"
             ],
@@ -99,6 +99,7 @@
           }
         },
         "test": {
+<% if (props.tools.includes('jest')) { -%>
           "builder": "@angular-builders/jest:run",
           "options": {
             "watch": true
@@ -111,6 +112,43 @@
               "silent": true
             }
           }
+<% } else { -%>
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "karmaConfig": "src/karma.conf.js",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "scripts": [],
+            "styles": [
+              "src/main.scss"
+            ],
+            "assets": [
+<% if (props.target.includes('web')) { -%>
+              "src/favicon.ico",
+              "src/apple-touch-icon.png",
+              "src/robots.txt",
+<% } -%>
+<% if (props.pwa) { -%>
+              "src/manifest.json",
+<% } -%>
+<% if (props.ui === 'ionic') { -%>
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              },
+<% } -%>
+              "src/assets"
+            ]
+          },
+          "configurations": {
+            "ci": {
+              "progress": false,
+              "watch": false
+            }
+          }
+<% } -%>
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
